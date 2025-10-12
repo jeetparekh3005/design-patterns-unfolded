@@ -213,8 +213,8 @@ Generated on: $(date)
 - **Test Directory**: build/rust/
 
 ## Test Results
-- **Pass Rate**: $(( (TEST_SUCCESS * 100) / TEST_TOTAL ))%
-- **Failure Rate**: $(( (TEST_FAILED * 100) / TEST_TOTAL ))%
+- **Pass Rate**: $SUCCESS_RATE
+- **Failure Rate**: $(if [ "$TEST_TOTAL" -eq 0 ]; then echo "N/A"; else echo "$(( (TEST_FAILED * 100) / TEST_TOTAL ))%"; fi)
 
 ## Next Steps
 1. Review failed tests and fix issues
