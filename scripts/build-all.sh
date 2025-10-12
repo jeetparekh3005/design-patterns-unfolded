@@ -168,6 +168,13 @@ build_rust() {
 create_build_summary() {
     print_status "Creating build summary..."
     
+    # Calculate success rate (handle division by zero)
+    if [ "$BUILD_TOTAL" -eq 0 ]; then
+        SUCCESS_RATE="N/A (no builds found)"
+    else
+        SUCCESS_RATE="$(( (BUILD_SUCCESS * 100) / BUILD_TOTAL ))%"
+    fi
+    
     cat > build/build-summary.md << EOF
 # Build Summary
 
@@ -177,7 +184,7 @@ Generated on: $(date)
 - **Total Builds**: $BUILD_TOTAL
 - **Successful**: $BUILD_SUCCESS
 - **Failed**: $BUILD_FAILED
-- **Success Rate**: $(( (BUILD_SUCCESS * 100) / BUILD_TOTAL ))%
+- **Success Rate**: $SUCCESS_RATE
 
 ## Language Breakdown
 
@@ -333,7 +340,11 @@ main() {
     echo "  - Total Builds: $BUILD_TOTAL"
     echo "  - Successful: $BUILD_SUCCESS"
     echo "  - Failed: $BUILD_FAILED"
-    echo "  - Success Rate: $(( (BUILD_SUCCESS * 100) / BUILD_TOTAL ))%"
+    if [ "$BUILD_TOTAL" -eq 0 ]; then
+        echo "  - Success Rate: N/A (no builds found)"
+    else
+        echo "  - Success Rate: $(( (BUILD_SUCCESS * 100) / BUILD_TOTAL ))%"
+    fi
     echo ""
     echo "Next steps:"
     echo "1. Run './scripts/test-all.sh' to run all tests"

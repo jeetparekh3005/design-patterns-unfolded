@@ -168,6 +168,13 @@ test_rust() {
 create_test_summary() {
     print_status "Creating test summary..."
     
+    # Calculate success rate (handle division by zero)
+    if [ "$TEST_TOTAL" -eq 0 ]; then
+        SUCCESS_RATE="N/A (no tests found)"
+    else
+        SUCCESS_RATE="$(( (TEST_SUCCESS * 100) / TEST_TOTAL ))%"
+    fi
+    
     cat > build/test-summary.md << EOF
 # Test Summary
 
@@ -177,7 +184,7 @@ Generated on: $(date)
 - **Total Tests**: $TEST_TOTAL
 - **Passed**: $TEST_SUCCESS
 - **Failed**: $TEST_FAILED
-- **Success Rate**: $(( (TEST_SUCCESS * 100) / TEST_TOTAL ))%
+- **Success Rate**: $SUCCESS_RATE
 
 ## Language Breakdown
 
@@ -388,7 +395,11 @@ main() {
     echo "  - Total Tests: $TEST_TOTAL"
     echo "  - Passed: $TEST_SUCCESS"
     echo "  - Failed: $TEST_FAILED"
-    echo "  - Success Rate: $(( (TEST_SUCCESS * 100) / TEST_TOTAL ))%"
+    if [ "$TEST_TOTAL" -eq 0 ]; then
+        echo "  - Success Rate: N/A (no tests found)"
+    else
+        echo "  - Success Rate: $(( (TEST_SUCCESS * 100) / TEST_TOTAL ))%"
+    fi
     echo ""
     echo "Next steps:"
     echo "1. Review build/test-summary.md for detailed results"
