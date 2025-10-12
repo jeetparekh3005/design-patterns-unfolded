@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [c, cpp, go, typescript, java, rust]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup C
+      if: matrix.language == 'c'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc make
+    
+    - name: Setup C++
+      if: matrix.language == 'cpp'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ cmake make
+    
+    - name: Setup Go
+      if: matrix.language == 'go'
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+    
+    - name: Setup Node.js
+      if: matrix.language == 'typescript'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Setup Java
+      if: matrix.language == 'java'
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Setup Rust
+      if: matrix.language == 'rust'
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+    
+    - name: Install dependencies
+      if: matrix.language == 'typescript'
+      run: npm ci
+    
+    - name: Build and Test
+      run: |
+        case "${{ matrix.language }}" in
+          c)
+            find patterns -name "*.c" -path "*/c/*" -execdir make \;
+            ;;
+          cpp)
+            find patterns -name "CMakeLists.txt" -execdir cmake . \; -execdir make \;
+            ;;
+          go)
+            find patterns -name "*.go" -path "*/go/*" -execdir go test ./... \;
+            ;;
+          typescript)
+            npm test
+            ;;
+          java)
+            find patterns -name "build.gradle" -execdir ./gradlew test \;
+            ;;
+          rust)
+            find patterns -name "Cargo.toml" -execdir cargo test \;
+            ;;
+        esac

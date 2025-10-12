@@ -1,0 +1,65 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# C/C++ files
+*.c text
+*.h text
+*.cpp text
+*.hpp text
+*.cc text
+*.cxx text
+
+# Go files
+*.go text
+
+# TypeScript/JavaScript files
+*.ts text
+*.js text
+*.json text
+
+# Java files
+*.java text
+
+# Rust files
+*.rs text
+
+# Markdown files
+*.md text
+
+# Shell scripts
+*.sh text
+
+# Configuration files
+*.yml text
+*.yaml text
+*.toml text
+*.json text
+*.xml text
+
+# Documentation
+*.txt text
+*.rst text
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.pdf binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.bz2 binary
+*.7z binary
+
+# Executables
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.a binary
+*.lib binary

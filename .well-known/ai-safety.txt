@@ -1,0 +1,39 @@
+# AI Safety Information
+
+This repository contains educational content about software design patterns. The content is intended for learning and educational purposes.
+
+## Content Safety
+
+- **Educational Purpose**: All content is designed for educational purposes
+- **No Harmful Code**: No malicious or harmful code is included
+- **Open Source**: All code is open source and can be reviewed
+- **Community Driven**: Content is created and maintained by the community
+
+## AI Usage Guidelines
+
+- **Learning Assistant**: AI can be used as a learning assistant for understanding patterns
+- **Code Review**: AI can help review and improve code implementations
+- **Documentation**: AI can assist with documentation and explanations
+- **Testing**: AI can help with testing and quality assurance
+
+## Safety Measures
+
+- **Code Review**: All code is reviewed by the community
+- **Testing**: All implementations are tested
+- **Documentation**: Clear documentation for all patterns
+- **Examples**: Safe, educational examples only
+
+## Reporting Issues
+
+If you find any safety concerns or issues, please report them:
+- Open an issue on GitHub
+- Contact the maintainers
+- Follow the code of conduct
+
+## Contact
+
+For safety-related concerns, please contact:
+- GitHub Issues: https://github.com/jeetparekh3005/design-patterns-unfolded/issues
+- Email: safety@design-patterns-unfolded.com
+
+This repository is committed to providing safe, educational content for learning software design patterns.
